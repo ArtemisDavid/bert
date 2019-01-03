@@ -1,5 +1,10 @@
+[TOC]
+
 # Use BERT as feature
+1. 如何调用bert，将输入的语句输出为向量？
+2. 如果在自己的代码中添加bert作为底层特征，需要官方例子run_classifier.py的那么多代码吗？
 # 环境
+
 ```python
 mac:
 tf==1.4.0
@@ -11,13 +16,57 @@ python=3.5
 ```
 
 # 入口
+
 调用预训练的模型，来做句子的预测。
 bert_as_feature.py
-
 配置data_root为模型的地址
-
 调用预训练模型：chinese_L-12_H-768_A-12
+调用核心代码：
+```python
+# graph
+input_ids = tf.placeholder(tf.int32, shape=[None, None], name='input_ids')
+input_mask = tf.placeholder(tf.int32, shape=[None, None], name='input_masks')
+segment_ids = tf.placeholder(tf.int32, shape=[None, None], name='segment_ids')
+
+# 初始化BERT
+model = modeling.BertModel(
+    config=bert_config,
+    is_training=False,
+    input_ids=input_ids,
+    input_mask=input_mask,
+    token_type_ids=segment_ids,
+    use_one_hot_embeddings=False)
+
+# 加载bert模型
+tvars = tf.trainable_variables()
+(assignment, initialized_variable_names) = modeling.get_assignment_map_from_checkpoint(tvars, init_check_point)
+
+# 获取最后一层和倒数第二层。
+encoder_last_layer = model.get_sequence_output()
+encoder_last2_layer = model.all_encoder_layers[-2]
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+
+    token = tokenization.CharTokenizer(vocab_file=bert_vocab_file)
+    query = u'Jack,请回答1988, UNwant\u00E9d,running'
+    split_tokens = token.tokenize(query)
+    word_ids = token.convert_tokens_to_ids(split_tokens)
+    word_mask = [1] * len(word_ids)
+    word_segment_ids = [0] * len(word_ids)
+    fd = {input_ids: [word_ids], input_mask: [word_mask], segment_ids: [word_segment_ids]}
+    last, last2 = sess.run([encoder_last_layer, encoder_last_layer], feed_dict=fd)
+    print('last shape:{}, last2 shape: {}'.format(last.shape, last2.shape))
+```
+
+完整代码见： [bert_as_feature.py](https://github.com/InsaneLife/bert/blob/master/bert_as_feature.py) 
+
+代码库：https://github.com/InsaneLife/bert
+
+中文模型下载：**[`BERT-Base, Chinese`](https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip)**:    Chinese Simplified and Traditional, 12-layer, 768-hidden, 12-heads, 110M    parameters
+
 # 最终结果
+
 最后一层和倒数第二层：
 last shape:(1, 14, 768), last2 shape: (1, 14, 768)
 
@@ -85,7 +134,6 @@ class CharTokenizer(object):
     def convert_tokens_to_ids(self, tokens):
         return convert_tokens_to_ids(self.vocab, tokens)
 ```
-
 
 
 

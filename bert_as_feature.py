@@ -47,11 +47,7 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
     token = tokenization.CharTokenizer(vocab_file=bert_vocab_file)
-    basic_token = tokenization.BasicTokenizer()
-    full_token = tokenization.FullTokenizer(vocab_file=bert_vocab_En_file)
     query = u'Jack,请回答1988, UNwant\u00E9d,running'
-    # split_tokens = basic_token.tokenize(query)
-    split_tokens = full_token.tokenize(u"UNwant\u00E9d,running")
     split_tokens = token.tokenize(query)
     word_ids = token.convert_tokens_to_ids(split_tokens)
     word_mask = [1] * len(word_ids)
