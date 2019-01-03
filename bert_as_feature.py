@@ -2,6 +2,9 @@
 
 import tensorflow as tf
 import tokenization, modeling
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = '2'
 
 # 配置文件
 data_root = 'weight/chinese_L-12_H-768_A-12/'
@@ -9,6 +12,7 @@ bert_config_file = data_root + 'bert_config.json'
 bert_config = modeling.BertConfig.from_json_file(bert_config_file)
 init_check_point = data_root + 'bert_model.ckpt'
 bert_vocab_file = data_root + 'vocab.txt'
+bert_vocab_En_file = 'weight/uncased_L-12_H-768_A-12/vocab.txt'
 
 # test
 token = tokenization.CharTokenizer(vocab_file=bert_vocab_file)
@@ -31,7 +35,6 @@ model = modeling.BertModel(
     token_type_ids=segment_ids,
     use_one_hot_embeddings=False)
 
-
 # 加载bert模型
 tvars = tf.trainable_variables()
 (assignment, initialized_variable_names) = modeling.get_assignment_map_from_checkpoint(tvars, init_check_point)
@@ -44,7 +47,12 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
     token = tokenization.CharTokenizer(vocab_file=bert_vocab_file)
-    split_tokens = token.tokenize('龘,Jack,请回答1988')
+    basic_token = tokenization.BasicTokenizer()
+    full_token = tokenization.FullTokenizer(vocab_file=bert_vocab_En_file)
+    query = u'Jack,请回答1988, UNwant\u00E9d,running'
+    # split_tokens = basic_token.tokenize(query)
+    split_tokens = full_token.tokenize(u"UNwant\u00E9d,running")
+    split_tokens = token.tokenize(query)
     word_ids = token.convert_tokens_to_ids(split_tokens)
     word_mask = [1] * len(word_ids)
     word_segment_ids = [0] * len(word_ids)
