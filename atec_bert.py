@@ -21,7 +21,7 @@ flags.DEFINE_string("output_dir", "output/", "Total number of training epochs to
 
 flags.DEFINE_integer("max_seq_length", 224, "")
 flags.DEFINE_bool("do_train", True, "Whether to run training.")
-flags.DEFINE_bool("do_eval", False, "Whether to run eval on the dev set.")
+flags.DEFINE_bool("do_eval", True, "Whether to run eval on the dev set.")
 flags.DEFINE_integer("train_batch_size", 8, "Total batch size for training.")
 flags.DEFINE_integer("eval_batch_size", 8, "Total batch size for eval.")
 flags.DEFINE_float("learning_rate", 5e-5, "The initial learning rate for Adam.")
@@ -207,8 +207,8 @@ def file_based_input_fn_builder(input_file, seq_length, is_training,
         # For eval, we want no shuffling and parallel reading doesn't matter.
         d = tf.data.TFRecordDataset(input_file)
         if is_training:
-            d = d.shuffle(buffer_size=100)
             d = d.repeat()
+            d = d.shuffle(buffer_size=100)
 
         d = d.map(map_func=lambda record: _decode_record(record, name_to_features),
                   num_parallel_calls=FLAGS.num_parallel_calls)
@@ -310,7 +310,7 @@ class AtecProcessor(DataProcessor):
     def get_dev_examples(self, data_dir):
         """See base class."""
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "dev_mini.csv")), "dev")
+            self._read_tsv(os.path.join(data_dir, "dev.csv")), "dev")
 
     def get_all_examples(self, data_dir):
         """See base class."""
@@ -497,6 +497,7 @@ def main(_):
         use_one_hot_embeddings=FLAGS.use_tpu)
 
     run_config = tf.estimator.RunConfig()
+    tf.gfile.MakeDirs(FLAGS.saved_model_dir)
     run_config = run_config.replace(model_dir=FLAGS.saved_model_dir)
     run_config = run_config.replace(save_checkpoints_steps=FLAGS.save_checkpoints_steps)
 
@@ -511,12 +512,7 @@ def main(_):
     if FLAGS.do_train:
         # read train file
         train_file = os.path.join(FLAGS.output_dir, "train.tf_record")
-        filed_based_convert_examples_to_features(train_examples, label_list, FLAGS.max_seq_length, tokenizer, train_file)
-        # read eval file
-        eval_examples = processor.get_dev_examples(FLAGS.data_dir)
-        eval_file = os.path.join(FLAGS.output_dir, "eval.tf_record")
-        filed_based_convert_examples_to_features(
-            eval_examples, label_list, FLAGS.max_seq_length, tokenizer, eval_file)
+        # filed_based_convert_examples_to_features(train_examples, label_list, FLAGS.max_seq_length, tokenizer, train_file)
 
         tf.logging.info("***** Running training *****")
         tf.logging.info("  Num examples = %d", len(train_examples))
@@ -528,6 +524,10 @@ def main(_):
             is_training=True,
             drop_remainder=True)
         # estimator.train(input_fn=train_input_fn, max_steps=num_train_steps)
+
+        eval_examples = processor.get_dev_examples(FLAGS.data_dir)
+        eval_file = os.path.join(FLAGS.output_dir, "eval.tf_record")
+        # filed_based_convert_examples_to_features(eval_examples, label_list, FLAGS.max_seq_length, tokenizer, eval_file)
         eval_input_fn = file_based_input_fn_builder(
             input_file=eval_file,
             seq_length=FLAGS.max_seq_length,
@@ -541,13 +541,12 @@ def main(_):
         tf.estimator.train_and_evaluate(
             estimator,
             train_spec=tf.estimator.TrainSpec(train_input_fn, max_steps=num_train_steps),
-            eval_spec=tf.estimator.EvalSpec(eval_input_fn, steps=100))  # num_eval_steps
+            eval_spec=tf.estimator.EvalSpec(eval_input_fn))  # num_eval_steps
 
     if FLAGS.do_eval:
         eval_examples = processor.get_dev_examples(FLAGS.data_dir)
         eval_file = os.path.join(FLAGS.output_dir, "eval.tf_record")
-        filed_based_convert_examples_to_features(
-            eval_examples, label_list, FLAGS.max_seq_length, tokenizer, eval_file)
+        # filed_based_convert_examples_to_features(eval_examples, label_list, FLAGS.max_seq_length, tokenizer, eval_file)
 
         tf.logging.info("***** Running evaluation *****")
         tf.logging.info("  Num examples = %d", len(eval_examples))

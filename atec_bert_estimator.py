@@ -21,7 +21,7 @@ flags.DEFINE_string("output_dir", "output/", "Total number of training epochs to
 
 flags.DEFINE_integer("max_seq_length", 224, "")
 flags.DEFINE_bool("do_train", True, "Whether to run training.")
-flags.DEFINE_bool("do_eval", False, "Whether to run eval on the dev set.")
+flags.DEFINE_bool("do_eval", True, "Whether to run eval on the dev set.")
 flags.DEFINE_integer("train_batch_size", 8, "Total batch size for training.")
 flags.DEFINE_integer("eval_batch_size", 8, "Total batch size for eval.")
 flags.DEFINE_float("learning_rate", 5e-5, "The initial learning rate for Adam.")
@@ -33,6 +33,7 @@ flags.DEFINE_float(
     "E.g., 0.1 = 10% of training.")
 flags.DEFINE_bool("use_tpu", False, "Whether to use TPU or GPU/CPU.")
 flags.DEFINE_integer("num_parallel_calls", 8, "parallel num number, eq cpu core")
+flags.DEFINE_bool("print_variables", False, "print Trainable Variables")
 
 
 def convert_single_example(ex_index, example, label_list, max_seq_length,
