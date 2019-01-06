@@ -513,7 +513,7 @@ def main(_):
     if FLAGS.do_train:
         # read train file
         train_file = os.path.join(FLAGS.output_dir, "train.tf_record")
-        # filed_based_convert_examples_to_features(train_examples, label_list, FLAGS.max_seq_length, tokenizer, train_file)
+        filed_based_convert_examples_to_features(train_examples, label_list, FLAGS.max_seq_length, tokenizer, train_file)
 
         tf.logging.info("***** Running training *****")
         tf.logging.info("  Num examples = %d", len(train_examples))
