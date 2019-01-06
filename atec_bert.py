@@ -33,6 +33,7 @@ flags.DEFINE_float(
     "E.g., 0.1 = 10% of training.")
 flags.DEFINE_bool("use_tpu", False, "Whether to use TPU or GPU/CPU.")
 flags.DEFINE_integer("num_parallel_calls", 8, "parallel num number, eq cpu core")
+flags.DEFINE_bool("print_variables", False, "print Trainable Variables")
 
 
 def convert_single_example(ex_index, example, label_list, max_seq_length,
@@ -410,13 +411,14 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
              ) = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
             tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
 
-        tf.logging.info("**** Trainable Variables ****")
-        for var in tvars:
-            init_string = ""
-            if var.name in initialized_variable_names:
-                init_string = ", *INIT_FROM_CKPT*"
-            tf.logging.info("  name = %s, shape = %s%s", var.name, var.shape,
-                            init_string)
+        if FLAGS.print_variables:
+            tf.logging.info("**** Trainable Variables ****")
+            for var in tvars:
+                init_string = ""
+                if var.name in initialized_variable_names:
+                    init_string = ", *INIT_FROM_CKPT*"
+                tf.logging.info("  name = %s, shape = %s%s", var.name, var.shape,
+                                init_string)
 
         output_spec = None
         if mode == tf.estimator.ModeKeys.TRAIN:
