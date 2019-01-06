@@ -11,6 +11,15 @@ __pycache__/
 # weight
 weight/*
 
+# data
+data/atec/*
+!data/atec/train.csv
+!data/atec/dev.csv
+
+
+# output
+output/
+
 # Distribution / packaging
 .Python
 build/
