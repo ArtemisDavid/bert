@@ -10,6 +10,8 @@ __pycache__/
 
 # weight
 weight/*
+!weight/atec/
+weight/atec/*
 
 # data
 data/atec/*
