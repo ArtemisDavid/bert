@@ -4,8 +4,6 @@
     <list default="true" id="3eb829af-486f-4602-bf3a-af84c510c00c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/atec_bert.py" beforeDir="false" afterPath="$PROJECT_DIR$/atec_bert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/atec_bert_estimator.py" beforeDir="false" afterPath="$PROJECT_DIR$/atec_bert_estimator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/optimization_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/optimization_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/atec_bert.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="28" column="95" lean-forward="true" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
+            <state relative-caret-position="172">
+              <caret line="541" column="30" selection-start-line="541" selection-start-column="21" selection-end-line="541" selection-end-column="30" />
               <folding>
                 <element signature="e#16#39#0" expanded="true" />
               </folding>
@@ -176,7 +174,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -324,7 +322,7 @@
       <workItem from="1546777061952" duration="2920000" />
       <workItem from="1546781437308" duration="622000" />
       <workItem from="1546782201491" duration="36000" />
-      <workItem from="1546782250826" duration="1590000" />
+      <workItem from="1546782250826" duration="2792000" />
     </task>
     <servers />
   </component>
@@ -334,18 +332,18 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13376000" />
+    <option name="totallyTimeSpent" value="14578000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21375267" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21375267" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38626608" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.38626608" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.52253217" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,7 +352,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32939914" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32939914" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32939914" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32939914" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -371,22 +369,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/atec_bert.py</url>
-          <line>213</line>
+          <line>214</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/atec_bert.py</url>
-          <line>219</line>
+          <line>220</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/atec_bert.py</url>
-          <line>534</line>
+          <line>535</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/atec_bert.py</url>
-          <line>387</line>
+          <line>388</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -531,8 +529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/atec_bert.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="28" column="95" lean-forward="true" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
+        <state relative-caret-position="172">
+          <caret line="541" column="30" selection-start-line="541" selection-start-column="21" selection-end-line="541" selection-end-column="30" />
           <folding>
             <element signature="e#16#39#0" expanded="true" />
           </folding>
