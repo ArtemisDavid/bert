@@ -7,6 +7,7 @@ __pycache__/
 
 # atec_code
 atec*.py
+!atec_rnn_similar.py
 
 
 # weight
