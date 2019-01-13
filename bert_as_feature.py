@@ -10,7 +10,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = '2'
 data_root = 'weight/chinese_L-12_H-768_A-12/'
 bert_config_file = data_root + 'bert_config.json'
 bert_config = modeling.BertConfig.from_json_file(bert_config_file)
-init_check_point = data_root + 'bert_model.ckpt'
+init_checkpoint = data_root + 'bert_model.ckpt'
 bert_vocab_file = data_root + 'vocab.txt'
 bert_vocab_En_file = 'weight/uncased_L-12_H-768_A-12/vocab.txt'
 
@@ -37,8 +37,8 @@ model = modeling.BertModel(
 
 # 加载bert模型
 tvars = tf.trainable_variables()
-(assignment, initialized_variable_names) = modeling.get_assignment_map_from_checkpoint(tvars, init_check_point)
-
+(assignment, initialized_variable_names) = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
+tf.train.init_from_checkpoint(init_checkpoint, assignment)
 # 获取最后一层和倒数第二层。
 encoder_last_layer = model.get_sequence_output()
 encoder_last2_layer = model.all_encoder_layers[-2]
