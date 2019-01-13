@@ -18,7 +18,9 @@ x_train['label'] = y_train
 x_train.to_csv('data/atec/train.csv', index=False, sep='\t', encoding='utf-8', header=False)
 
 x_test['label'] = y_test
-x_test.to_csv('data/atec/test.csv', index=False, sep='\t', encoding='utf-8', header=False)
+x_test.to_csv('data/atec/dev.csv', index=False, sep='\t', encoding='utf-8', header=False)
+
+a = 10e-2
 
 
 pass
